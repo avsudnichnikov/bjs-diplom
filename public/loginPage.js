@@ -7,7 +7,7 @@ userForm.loginFormCallback = (data) => {
         if (response.success) {
             window.location.reload();
         } else {
-            userForm.setLoginErrorMessage('Авторизация не удалась');
+            userForm.setLoginErrorMessage(response.error);
         }
     });
 };
@@ -17,7 +17,7 @@ userForm.registerFormCallback = (data) => {
         if (response.success) {
             window.location.reload();
         } else {
-            userForm.setRegisterErrorMessage('Регистрация не удалась');
+            userForm.setRegisterErrorMessage(response.error);
         }
     });
 };

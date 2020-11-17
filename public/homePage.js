@@ -3,8 +3,7 @@
 const logoutBtn = new LogoutButton();
 const ratesBoard = new RatesBoard();
 const moneyManager = new MoneyManager();
-
-
+const favoritesWidget = new FavoritesWidget();
 
 const logoutApiConnectorCallback = (response) => {
     if (response.success) {
@@ -57,4 +56,35 @@ moneyManager.conversionMoneyCallback = (data) => {
 
 moneyManager.sendMoneyCallback = (data) => {
     ApiConnector.transferMoney(data, moneyManagerApiConnectorCallback);
+};
+
+const reloadFavoriteList = (data) => {
+    favoritesWidget.clearTable();
+    favoritesWidget.fillTable(data);
+    moneyManager.updateUsersList(data);
+}
+
+const favoritesWidgetApiConnectorCallback = (response) => {
+    if (response.success) {
+        reloadFavoriteList(response.data);
+        favoritesWidget.setMessage(true, 'Действие успешно!');
+    } else {
+        favoritesWidget.setMessage(false, response.error);
+    }
+};
+
+const getFavoritesApiConnectorCallback = (response) => {
+    if (response.success) {
+        reloadFavoriteList(response.data);
+    }
+};
+
+ApiConnector.getFavorites(getFavoritesApiConnectorCallback);
+
+favoritesWidget.addUserCallback = (data) => {
+    ApiConnector.addUserToFavorites(data, favoritesWidgetApiConnectorCallback);
+};
+
+favoritesWidget.removeUserCallback = (data) => {
+    ApiConnector.removeUserFromFavorites(data, favoritesWidgetApiConnectorCallback);
 };
