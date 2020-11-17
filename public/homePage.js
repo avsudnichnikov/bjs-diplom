@@ -2,7 +2,7 @@
 
 const logoutBtn = new LogoutButton();
 
-userForm.action = () => {
+logoutBtn.action = () => {
     ApiConnector.logout(logoutApiConnectorCallback);
 };
 
