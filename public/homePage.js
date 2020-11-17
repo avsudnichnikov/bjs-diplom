@@ -11,3 +11,11 @@ const logoutApiConnectorCallback = (res) => {
         window.location.reload();
     }
 }
+
+const currentUserApiConnectorCallback = (res) => {
+    if (res.success) {
+        ProfileWidget.showProfile(res.data);
+    }
+};
+
+ApiConnector.current(currentUserApiConnectorCallback);
