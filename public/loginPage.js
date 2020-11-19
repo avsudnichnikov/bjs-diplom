@@ -13,7 +13,7 @@ userForm.loginFormCallback = (data) => {
 };
 
 userForm.registerFormCallback = (data) => {
-    ApiConnector.login(data, (response) => {
+    ApiConnector.register(data, (response) => {
         if (response.success) {
             window.location.reload();
         } else {
